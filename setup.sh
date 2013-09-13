@@ -1,3 +1,8 @@
+# This script sets up git submodules and gets rid of
+# the demos of isometric_engine and sdl_wrapper so
+# that CMake doesn't try to compile and add these
+# to atowers.
+
 git submodule init
 git submodule update --init --recursive
 
