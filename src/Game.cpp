@@ -60,28 +60,41 @@ void Game::run()
 {
   while (running)
   {
-    SDL_WaitEvent(&event);
+    SDL_PollEvent(&event);
 
-    switch (event.type)
+    if (event.type == SDL_QUIT)
     {
-      case SDL_KEYDOWN:
-        if (strcmp(SDL_GetKeyName(event.key.keysym.sym), "up") == 0)
-          obj->y -= 0.3;
-        else if (strcmp(SDL_GetKeyName(event.key.keysym.sym), "right") == 0)
-          obj->x += 0.3;
-        else if (strcmp(SDL_GetKeyName(event.key.keysym.sym), "down") == 0)
-          obj->y += 0.3;
-        else if (strcmp(SDL_GetKeyName(event.key.keysym.sym), "left") == 0)
-          obj->x -= 0.3;
-        else if (strcmp(SDL_GetKeyName(event.key.keysym.sym), "escape") == 0)
-          running = false;
-        break;
-
-      case SDL_QUIT:
-        running = false;
-        break;
+      running = false;
+      break;
     }
 
+    Uint8* keystate = SDL_GetKeyState(NULL);
+
+    if (keystate[SDLK_LEFT])
+    {
+      obj->x -= 0.1;
+    }
+    
+    if (keystate[SDLK_RIGHT])
+    {
+      obj->x += 0.1;
+    }
+    
+    if (keystate[SDLK_UP])
+    {
+      obj->y -= 0.1;
+    }
+    
+    if (keystate[SDLK_DOWN])
+    {
+      obj->y += 0.1;
+    }
+
+    if (keystate[SDLK_ESCAPE])
+    {
+      running = false;
+    }
+    
     engine->draw(obj2);
     engine->draw(obj);
     engine->draw();
