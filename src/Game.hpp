@@ -19,6 +19,7 @@ namespace atowers
   {
     private:
       bool running;
+      bool windowed;
 
       SDL_Event event;
 
