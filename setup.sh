@@ -4,7 +4,7 @@
 # to atowers.
 
 git submodule init
-git submodule update --init --recursive
+git submodule foreach --recursive git pull origin master
 
 mv src/isometric_engine/src/* src/isometric_engine/
 rm -rf src/isometric_engine/src/
