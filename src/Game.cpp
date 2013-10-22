@@ -48,6 +48,21 @@ void Game::setup()
     }
   }
 
+    float x = engine->get_iso_x(0.4, 0.5);
+    float y = engine->get_iso_y(0.4, 0.5);
+    printf("%f %f\n", x, y);
+     x = engine->get_iso_x(4, 0.5);
+     y = engine->get_iso_y(4, 0.5);
+    printf("%f %f\n", x, y);
+     x = engine->get_iso_x(3, 1);
+     y = engine->get_iso_y(3, 1);
+    printf("%f %f\n", x, y);
+     x = engine->get_iso_x(6, 3);
+     y = engine->get_iso_y(6, 3);
+    printf("%f %f\n", x, y);
+
+    bool bcc = checkClick(engine, obj, 0, 0);
+    printf("%d\n", bcc);
   /*
   engine->insert_tile(tile_test);
   tile_test_rwops = SDL_RWFromFile("res/grasstile3.png", "rb");
@@ -85,19 +100,36 @@ void Game::run()
       obj->y -= 0.1;
     }
     
-    if (keystate[SDLK_DOWN])
-    {
+    if (keystate[SDLK_DOWN]){
       obj->y += 0.1;
     }
 
-    if (keystate[SDLK_ESCAPE])
-    {
+    if (keystate[SDLK_ESCAPE]){
       running = false;
     }
     
-    engine->draw(obj2);
     engine->draw(obj);
+    //engine->draw(obj);
     engine->draw();
+
+    Wrapper::draw_image(obj2->surface, obj2->x, obj2->y, obj2->width, obj2->height);
+    
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    if(checkClick(engine, obj2, x, y)){
+      //obj->x = x;
+      //obj->y = y;
+      if(SDL_GetMouseState(&x, &y)&SDL_BUTTON(1)){
+        printf("1 ");
+      }
+      if(SDL_GetMouseState(&x, &y)&SDL_BUTTON(2)){
+        printf("2 ");
+      }
+      if(SDL_GetMouseState(&x, &y)&SDL_BUTTON(3)){
+        printf("3 ");
+      }
+      fflush(stdout);
+    }
 
     Wrapper::flip_screen();
   }
