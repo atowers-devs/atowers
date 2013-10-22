@@ -8,6 +8,7 @@
 #include "isometric_engine/MapParser.hpp"
 #include "isometric_engine/Drawable.hpp"
 #include "isometric_engine/Engine.hpp"
+#include "Selection.hpp"
 
 using namespace std;
 using namespace sdl_wrapper;
@@ -19,6 +20,7 @@ namespace atowers
   {
     private:
       bool running;
+      bool windowed;
 
       SDL_Event event;
 
