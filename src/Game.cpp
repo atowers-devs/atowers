@@ -11,10 +11,11 @@ using namespace atowers;
 void Game::setup()
 {
   running = true;
+  windowed = true;
 
   SDL_Init(SDL_INIT_EVERYTHING);
   SDL_WM_SetCaption("atowers", NULL);
-  screen = SDL_SetVideoMode(800, 640, 32, SDL_HWSURFACE);
+  screen = SDL_SetVideoMode(800, 640, 32, SDL_HWSURFACE | SDL_RESIZABLE);
 
   //SDL_RWops *tile_test_rwops = SDL_RWFromFile("res/grasstile4.png", "rb");
   //SDL_Surface *tile_test = IMG_LoadPNG_RW(tile_test_rwops);
@@ -80,6 +81,11 @@ void Game::run()
     if (event.type == SDL_QUIT)
     {
       running = false;
+      if (!windowed)
+      {
+      	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_RESIZABLE);
+      	windowed = true;
+      }
       break;
     }
 
@@ -104,8 +110,32 @@ void Game::run()
       obj->y += 0.1;
     }
 
+<<<<<<< HEAD
     if (keystate[SDLK_ESCAPE]){
+=======
+    if (keystate[SDLK_F11])
+    {
+    	if (windowed)
+    	{
+    		screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_RESIZABLE | SDL_FULLSCREEN);
+      		windowed = false;
+    	}
+    	else
+    	{
+    		screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_RESIZABLE);
+      		windowed = true;
+    	}
+    }
+
+    if (keystate[SDLK_ESCAPE])
+    {
+>>>>>>> 8d2ad61d3ef59eaaf6ebe04fea631d0a27eb91c6
       running = false;
+      if (!windowed)
+      {
+      	screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_RESIZABLE);
+      	windowed = true;
+      }
     }
     
     engine->draw(obj);
