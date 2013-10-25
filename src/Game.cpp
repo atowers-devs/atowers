@@ -18,7 +18,7 @@ void Game::setup()
 
   //SDL_RWops *tile_test_rwops = SDL_RWFromFile("res/grasstile4.png", "rb");
   //SDL_Surface *tile_test = IMG_LoadPNG_RW(tile_test_rwops);
-  SDL_Surface *obj_test = Wrapper::load_image("res/tank.png");
+  SDL_Surface *obj_test = Wrapper::load_image((char*) "res/tank.png");
 
   obj = new Drawable (obj_test, 60, 40);
   obj->x = 4;
