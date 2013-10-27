@@ -19,7 +19,7 @@ void Game::setup()
 
   //SDL_RWops *tile_test_rwops = SDL_RWFromFile("res/grasstile4.png", "rb");
   //SDL_Surface *tile_test = IMG_LoadPNG_RW(tile_test_rwops);
-  SDL_Surface *obj_test = Wrapper::load_image("res/tank.png");
+  SDL_Surface *obj_test = Wrapper::load_image((char*)"res/tank.png");
 
   obj = new Drawable (obj_test, 60, 40);
   obj->x = 4;
@@ -49,27 +49,6 @@ void Game::setup()
     }
   }
 
-    float x = engine->get_iso_x(0.4, 0.5);
-    float y = engine->get_iso_y(0.4, 0.5);
-    printf("%f %f\n", x, y);
-     x = engine->get_iso_x(4, 0.5);
-     y = engine->get_iso_y(4, 0.5);
-    printf("%f %f\n", x, y);
-     x = engine->get_iso_x(3, 1);
-     y = engine->get_iso_y(3, 1);
-    printf("%f %f\n", x, y);
-     x = engine->get_iso_x(6, 3);
-     y = engine->get_iso_y(6, 3);
-    printf("%f %f\n", x, y);
-
-    bool bcc = checkClick(engine, obj, 0, 0);
-    printf("%d\n", bcc);
-  /*
-  engine->insert_tile(tile_test);
-  tile_test_rwops = SDL_RWFromFile("res/grasstile3.png", "rb");
-  tile_test = IMG_LoadPNG_RW(tile_test_rwops);
-  engine->insert_tile(tile_test);
-  */
 }
 
 void Game::run()
@@ -110,9 +89,6 @@ void Game::run()
       obj->y += 0.1;
     }
 
-<<<<<<< HEAD
-    if (keystate[SDLK_ESCAPE]){
-=======
     if (keystate[SDLK_F11])
     {
     	if (windowed)
@@ -129,7 +105,6 @@ void Game::run()
 
     if (keystate[SDLK_ESCAPE])
     {
->>>>>>> 8d2ad61d3ef59eaaf6ebe04fea631d0a27eb91c6
       running = false;
       if (!windowed)
       {
@@ -139,16 +114,12 @@ void Game::run()
     }
     
     engine->draw(obj);
-    //engine->draw(obj);
+    engine->draw(obj2);
     engine->draw();
 
-    Wrapper::draw_image(obj2->surface, obj2->x, obj2->y, obj2->width, obj2->height);
-    
-    int x, y;
-    SDL_GetMouseState(&x, &y);
-    if(checkClick(engine, obj2, x, y)){
-      //obj->x = x;
-      //obj->y = y;
+    Drawable* d = setMovementTarget(engine);
+    /*if(checkClickonEngine(engine, obj, x, y)){
+
       if(SDL_GetMouseState(&x, &y)&SDL_BUTTON(1)){
         printf("1 ");
       }
@@ -159,6 +130,10 @@ void Game::run()
         printf("3 ");
       }
       fflush(stdout);
+    }*/
+    if(d!=NULL){
+      obj->x = floor(d->x);
+      obj->y = floor(d->y);
     }
 
     Wrapper::flip_screen();
